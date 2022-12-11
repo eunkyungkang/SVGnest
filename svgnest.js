@@ -2,7 +2,7 @@
  * SvgNest
  * Licensed under the MIT license
  */
- 
+
 (function(root){
 	'use strict';
 
@@ -541,7 +541,6 @@
 					evalPath: 'util/eval.js'
 				});
 				
-				p2.require('json.js');
 				p2.require('clipper.js');
 				p2.require('matrix.js');
 				p2.require('geometryutil.js');

@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
       "build": "webpack --progress --mode=production",
+      "heroku-postbuild": "webpack --mode=production",
       "dev-server": "webpack-dev-server --mode=development"
     },
     "license": "MIT",

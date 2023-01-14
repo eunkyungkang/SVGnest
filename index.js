@@ -12,21 +12,10 @@ function ready(fn){
 }
 
 ready(function(){
-    // FAQ toggle
-    var faq = document.getElementById('faq');
-    var faqbutton = document.getElementById('faqbutton');
-    
-    var faqvisible = false;
-    faqbutton.onclick = function(e){
-        if(!faqvisible){
-            faq.setAttribute('style','display: block');
-        }
-        else{
-            faq.removeAttribute('style');
-        }
-        faqvisible = !faqvisible;
-    };
-    
+    require('./faq');
+    const progress = require('./progress');
+    const dxf = require('./dxf_metadata');
+
     function hideSplash(){
         var splash = document.getElementById('splash');
         var svgnest = document.getElementById('svgnest');
@@ -99,11 +88,6 @@ ready(function(){
     var zoomin = document.getElementById('zoominbutton');
     var zoomout = document.getElementById('zoomoutbutton');
     var exit = document.getElementById('exitbutton');
-
-    var dxfMetadata = document.getElementById('dxfmetadata');
-    var modalClose = document.getElementsByClassName("close")[0];
-    var dxfMetadataSubmit = document.getElementById('metadata-submit');
-    var dxfSizeSelect = document.getElementById('dxf-sizes');
     
     var isworking = false;
     
@@ -129,7 +113,7 @@ ready(function(){
         document.removeEventListener('dragleave', FileDragHover, false);
         document.removeEventListener('drop', FileDrop, false);
         
-        SvgNest.start(progress, renderSvg);
+        SvgNest.start(progress.start(), renderSvg);
         startlabel.innerHTML = 'Stop Nest';
         start.className = 'button spinner';
         configbutton.className = 'button config disabled';
@@ -211,7 +195,7 @@ ready(function(){
     function FileDrop(e){
         e.stopPropagation(); // Make sure not to replace website by file
         e.preventDefault();
-        getDxfMetadata(e.dataTransfer.files[0]);
+        dxf.getDxfMetadata(e.dataTransfer.files[0]);
     }
     
     
@@ -269,7 +253,7 @@ ready(function(){
     
     var zoomlevel = 1.0;
     
-    zoomin.onclick = function(){
+    zoomin.onclick = function() {
         if(this.className == 'button zoomin disabled'){
             return false;
         }
@@ -299,91 +283,7 @@ ready(function(){
     }
     
     fileinput.onchange = function(e){
-        getDxfMetadata(e.target.files[0]);
-    }
-    
-    /* DXF metadata modal */
-    modalClose.onclick = function() {
-        dxfMetadata.style.display = "none";
-    }
-  
-    window.onclick = function(event) {
-        if (event.target == dxfMetadata) {
-            dxfMetadata.style.display = "none";
-        }
-    }
-
-    dxfMetadataSubmit.onclick = function() {
-        var selectedSize = dxfSizeSelect.value;
-
-        dxfMetadataSubmit.className = 'button spinner';
-
-        convertToSvg(data.filename, selectedSize);
-    }
-
-    function showDxfMetadata(data) {
-        while (dxfSizeSelect.options.length > 0) {
-            select.remove(0);
-        }
-
-        var numberPieces = document.getElementById("dxf-pieces");
-        numberPieces.innerHTML = data.number_pieces;
-
-        let sizes = data.sizes;
-        for(var sizeKey in sizes) {
-            let option = new Option(sizes[sizeKey], sizes[sizeKey]);
-            dxfSizeSelect.add(option, undefined);
-        }
-
-        dxfMetadata.style.display = "block";
-    }
-
-    function getDxfMetadata(file) {
-        const apiUrl = "https://dxf-convertor.herokuapp.com/upload_dxf";
-
-        if(!file){
-            return;
-        }
-
-        if(!file.type || (file.type.search('dxf') < 0)){
-            message.innerHTML = 'Only DXF files allowed';
-            message.className = 'error animated bounce';
-            return
-        }
-
-        upload.className = 'button spinner';
-
-        var data = new FormData();
-        if(file) {
-            data.append('file', file);
-        }
-        fetch(apiUrl, { method: "POST", body: data })
-            .then((response) => response.json())
-            .then((data) => {
-                showDxfMetadata(data);
-                upload.className = 'button';
-            })
-            .catch(err => {
-                message.innerHTML = 'Error when fetching DXF metadata';
-                message.className = 'error animated bounce';
-            });
-    }
-
-    function convertToSvg(filename, size) {
-        const apiUrl = "https://dxf-convertor.herokuapp.com/dxf_to_svg";
-
-        fetch(apiUrl + new URLSearchParams({
-            filename: filename,
-            size: size,
-        }), { method: "GET" })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-            })
-            .catch(err => {
-                message.innerHTML = 'Error when converting DXF to SVG';
-                message.className = 'error animated bounce';
-            });
+        dxf.getDxfMetadata(e.target.files[0]);
     }
 
     function handleSvg(file){
@@ -397,7 +297,7 @@ ready(function(){
             return
         }
 
-        getDxfMetadata(file);
+        dxf.getDxfMetadata(file);
         
         var reader = new FileReader();
         var input = this;
@@ -471,37 +371,7 @@ ready(function(){
             }
         }
     }
-    
-    var prevpercent = 0;
-    var startTime = null;
-    
-    function progress(percent){
-        var transition = percent > prevpercent ? '; transition: width 0.1s' : '';
-        document.getElementById('info_progress').setAttribute('style','width: '+Math.round(percent*100)+'% ' + transition);
-        document.getElementById('info').setAttribute('style','display: block');
-        
-        prevpercent = percent;
-        
-        var now = new Date().getTime();
-        if(startTime && now){
-            var diff = now-startTime;
-            // show a time estimate for long-running placements
-            var estimate = (diff/percent)*(1-percent);
-            document.getElementById('info_time').innerHTML = millisecondsToStr(estimate)+' remaining';
-            
-            if(diff > 5000 && percent < 0.3 && percent > 0.02 && estimate > 10000){
-                document.getElementById('info_time').setAttribute('style','display: block');
-            }
-        }
-        
-        if(percent > 0.95 || percent < 0.02){
-            document.getElementById('info_time').setAttribute('style','display: none');
-        }
-        if(percent < 0.02){
-            startTime = new Date().getTime();
-        }
-    }
-    
+
     var iterations = 0;
     
     function renderSvg(svglist, efficiency, placed, total){
@@ -534,34 +404,5 @@ ready(function(){
     
     message.onclick = function(e){
         this.className='';
-    }
-    
-    function millisecondsToStr (milliseconds) {
-        function numberEnding (number) {
-            return (number > 1) ? 's' : '';
-        }
-
-        var temp = Math.floor(milliseconds / 1000);
-        var years = Math.floor(temp / 31536000);
-        if (years) {
-            return years + ' year' + numberEnding(years);
-        }
-        var days = Math.floor((temp %= 31536000) / 86400);
-        if (days) {
-            return days + ' day' + numberEnding(days);
-        }
-        var hours = Math.floor((temp %= 86400) / 3600);
-        if (hours) {
-            return hours + ' hour' + numberEnding(hours);
-        }
-        var minutes = Math.floor((temp %= 3600) / 60);
-        if (minutes) {
-            return minutes + ' minute' + numberEnding(minutes);
-        }
-        var seconds = temp % 60;
-        if (seconds) {
-            return seconds + ' second' + numberEnding(seconds);
-        }
-        return 'less than a second';
     }
 });

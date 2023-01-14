@@ -1,4 +1,3 @@
-var FileSaver = require('file-saver');
 require('pathseg');
 
 // UI-specific stuff, button clicks go here
@@ -13,6 +12,8 @@ function ready(fn){
 
 ready(function(){
     require('./faq');
+    require('./toolbar');
+    require('./download');
     const progress = require('./progress');
     const dxf = require('./dxf_metadata');
 
@@ -87,8 +88,7 @@ ready(function(){
     
     var zoomin = document.getElementById('zoominbutton');
     var zoomout = document.getElementById('zoomoutbutton');
-    var exit = document.getElementById('exitbutton');
-    
+
     var isworking = false;
     
     start.onclick = function(){
@@ -107,13 +107,13 @@ ready(function(){
         document.getElementById('info_time').setAttribute('style','display: none');
     };
     
-    function startnest(){
+    function startnest() {
         // Once started, don't allow this anymore
         document.removeEventListener('dragover', FileDragHover, false);
         document.removeEventListener('dragleave', FileDragHover, false);
         document.removeEventListener('drop', FileDrop, false);
         
-        SvgNest.start(progress.start(), renderSvg);
+        SvgNest.start(progress.start, renderSvg);
         startlabel.innerHTML = 'Stop Nest';
         start.className = 'button spinner';
         configbutton.className = 'button config disabled';
@@ -122,14 +122,14 @@ ready(function(){
         zoomout.className = 'button zoomout disabled';
         
         var svg = document.querySelector('#select svg');
-        if(svg){
+        if(svg) {
             svg.removeAttribute('style');
         }
         
         isworking = true;
     }
     
-    function stopnest(){
+    function stopnest() {
         SvgNest.stop();
         startlabel.innerHTML = 'Start Nest';
         start.className = 'button start';
@@ -184,9 +184,15 @@ ready(function(){
     upload.onclick = function(){
         fileinput.click();
     }
+
+    fileinput.onchange = function(e){
+        dxf.getDxfMetadata(e.target.files[0]);
+    }
+
     document.addEventListener('dragover', FileDragHover, false);
     document.addEventListener('dragleave', FileDragHover, false);
     document.addEventListener('drop', FileDrop, false);
+
     function FileDragHover(e){
         e.stopPropagation();
         e.preventDefault();
@@ -197,160 +203,15 @@ ready(function(){
         e.preventDefault();
         dxf.getDxfMetadata(e.dataTransfer.files[0]);
     }
-    
-    
-    download.onclick = function(){
-        if(download.className == 'button download disabled'){
-            return false;
-        }
-        
-        var bins = document.getElementById('bins');
-        
-        if(bins.children.length == 0){
-            message.innerHTML = 'No SVG to export';
-            message.className = 'error animated bounce';
-            return
-        }
-        
-        var svg;
-        svg = display.querySelector('svg');
-        
-        if(!svg){
-            svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-        }
-        
-        svg = svg.cloneNode(false);
-        
-        // maintain stroke, fill etc of input
-        if(SvgNest.style){
-            svg.appendChild(SvgNest.style);
-        }
-        
-        var binHeight = parseInt(bins.children[0].getAttribute('height'));
-        
-        for(var i=0; i<bins.children.length; i++){
-            var b = bins.children[i];
-            var group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            group.setAttribute('transform', 'translate(0 '+binHeight*1.1*i+')');
-            for(var j=0; j<b.children.length; j++){
-                group.appendChild(b.children[j].cloneNode(true));
-            }
-            
-            svg.appendChild(group);
-        }
-        
-        var output;
-        if(typeof XMLSerializer != 'undefined'){
-            output = (new XMLSerializer()).serializeToString(svg);
-        }
-        else{
-            output = svg.outerHTML;
-        }
-        
-        var blob = new Blob([output], {type: "image/svg+xml;charset=utf-8"});
-        FileSaver.saveAs(blob, "SVGnest-output.svg");
-    }
-    
-    var zoomlevel = 1.0;
-    
-    zoomin.onclick = function() {
-        if(this.className == 'button zoomin disabled'){
-            return false;
-        }
-        zoomlevel *= 1.2;
-        var svg = document.querySelector('#select svg');
-        if(svg){
-            svg.setAttribute('style', 'transform-origin: top left; transform:scale('+zoomlevel+'); -webkit-transform:scale('+zoomlevel+'); -moz-transform:scale('+zoomlevel+'); -ms-transform:scale('+zoomlevel+'); -o-transform:scale('+zoomlevel+');');
-        }
-    }
-    
-    zoomout.onclick = function(){
-        if(this.className == 'button zoomout disabled'){
-            return false;
-        }
-        zoomlevel *= 0.8;
-        if(zoomlevel < 0.02){
-            zoomlevel = 0.02;
-        }
-        var svg = document.querySelector('#select svg');
-        if(svg){
-            svg.setAttribute('style', 'transform-origin: top left; transform:scale('+zoomlevel+'); -webkit-transform:scale('+zoomlevel+'); -moz-transform:scale('+zoomlevel+'); -ms-transform:scale('+zoomlevel+'); -o-transform:scale('+zoomlevel+');');
-        }
-    }
-    
-    exit.onclick = function(){
-        location.reload();
-    }
-    
-    fileinput.onchange = function(e){
-        dxf.getDxfMetadata(e.target.files[0]);
-    }
 
-    function handleSvg(file){
-        if(!file){
-            return;
-        }
-
-        if(!file.type || (file.type.search('svg') < 0)){
-            message.innerHTML = 'Only SVG files allowed';
-            message.className = 'error animated bounce';
-            return
-        }
-
-        dxf.getDxfMetadata(file);
-        
-        var reader = new FileReader();
-        var input = this;
-        reader.onload = function(e) {
-            input.value = null;
-            
-            if(reader.result){
-                try{
-                    var svg = window.SvgNest.parsesvg(reader.result);
-                    {
-                        var wholeSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                        // Copy relevant scaling info
-                        wholeSVG.setAttribute('width',svg.getAttribute('width'));
-                        wholeSVG.setAttribute('height',svg.getAttribute('height'));
-                        wholeSVG.setAttribute('viewBox',svg.getAttribute('viewBox'));
-                        var rect = document.createElementNS(wholeSVG.namespaceURI,'rect');
-                        rect.setAttribute('x', wholeSVG.viewBox.baseVal.x);
-                        rect.setAttribute('y', wholeSVG.viewBox.baseVal.x);
-                        rect.setAttribute('width', wholeSVG.viewBox.baseVal.width);
-                        rect.setAttribute('height', wholeSVG.viewBox.baseVal.height);
-                        rect.setAttribute('class', 'fullRect');
-                        wholeSVG.appendChild(rect);
-                    }
-                    display.innerHTML = '';
-                    display.appendChild(wholeSVG); // As a default bin in background
-                    display.appendChild(svg);
-                }
-                catch(e){
-                    message.innerHTML = e;
-                    message.className = 'error animated bounce';
-                    return;
-                }					
-                
-                hideSplash();
-                message.innerHTML = 'Click on the outline to use as the bin';
-                message.className = 'active animated bounce';
-                start.className = 'button start disabled';
-                
-                attachSvgListeners(svg);
-                attachSvgListeners(wholeSVG);
-            }
-        }
-        
-        reader.readAsText(file);
-    };
     
-    function attachSvgListeners(svg){
+    function attachSvgListeners(svg) {
         // attach event listeners
-        for(var i=0; i<svg.childNodes.length; i++){
+        for(var i=0; i<svg.childNodes.length; i++) {
             var node = svg.childNodes[i];
             if(node.nodeType == 1){
                 node.onclick = function(){
-                    if(display.className == 'disabled'){
+                    if(display.className == 'disabled') {
                         return;
                     }
                     var currentbin = document.querySelector('#select .active');
@@ -374,7 +235,7 @@ ready(function(){
 
     var iterations = 0;
     
-    function renderSvg(svglist, efficiency, placed, total){
+    function renderSvg(svglist, efficiency, placed, total) {
         iterations++;
         document.getElementById('info_iterations').innerHTML = iterations;
         

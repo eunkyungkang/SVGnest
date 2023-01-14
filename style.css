@@ -2,7 +2,7 @@ body, html{
 margin: 0;
 padding: 0;
 border: 0;
-font: normal 22px/1.4 'LatoLatinWeb', helvetica, arial, verdana, sans-serif;
+font: normal 22px/1.4 'Roboto', helvetica, arial, verdana, sans-serif;
 background-color: #fff;
 color: #8b8b8b;
 }
@@ -19,7 +19,7 @@ text-decoration: underline;
 
 h1{
 font-size: 1.5em;
-font-family: 'LatoLatinWebLight', helvetica, arial, verdana, sans-serif;
+font-family: 'Roboto', helvetica, arial, verdana, sans-serif;
 font-weight: normal;
 margin: 1.5em 0 0.5em 0;
 color: #617bb5;

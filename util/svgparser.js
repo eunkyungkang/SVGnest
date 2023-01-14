@@ -3,7 +3,7 @@
  * A library to convert an SVG string to parse-able segments for CAD/CAM use
  * Licensed under the MIT license
  */
- 
+
  (function(root){
 	'use strict';
 	

@@ -1,4 +1,30 @@
 var dxfFilename = null;
+var upload = document.getElementById('upload');
+var fileinput = document.getElementById('fileinput');
+
+document.addEventListener('dragover', FileDragHover, false);
+document.addEventListener('dragleave', FileDragHover, false);
+document.addEventListener('drop', FileDrop, false);
+
+function FileDragHover(e){
+    e.stopPropagation();
+    e.preventDefault();
+    upload.style.backgroundColor = (e.type == "dragover" ? "#d7e9b7" : "");
+}
+
+function FileDrop(e) {
+    e.stopPropagation(); // Make sure not to replace website by file
+    e.preventDefault();
+    getDxfMetadata(e.dataTransfer.files[0]);
+}
+
+upload.onclick = function() {
+    fileinput.click();
+}
+
+fileinput.onchange = function(e) {
+    getDxfMetadata(e.target.files[0]);
+}
 
 const getDxfMetadata = (file) => {
     const apiUrl = "https://dxf-convertor.herokuapp.com/upload_dxf";
@@ -178,5 +204,3 @@ function attachSvgListeners(svg) {
         }
     }
 }
-
-exports.getDxfMetadata = getDxfMetadata;

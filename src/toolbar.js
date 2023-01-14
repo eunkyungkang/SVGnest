@@ -1,4 +1,6 @@
     
+require('./config');
+
 var zoomlevel = 1.0;
 var zoomin = document.getElementById('zoominbutton');
 var zoomout = document.getElementById('zoomoutbutton');

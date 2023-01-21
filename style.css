@@ -64,8 +64,8 @@ color: #8498d1;
 
 .drag-area{
   border: 2px dashed #fff;
-  height: 500px;
-  width: 700px;
+  height: 400px;
+  width: 20em;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -110,9 +110,11 @@ color: #8498d1;
 }
 
 #splash{
-width: 35em;
+width: 50em;
 margin: 1% auto 0 auto;
 align-items: center;
+display: flex;
+flex-wrap: nowrap;
 }
 
 #splash .logo{

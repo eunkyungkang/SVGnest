@@ -62,9 +62,57 @@ color: #8498d1;
   right: 10%; 
 }
 
+.drag-area{
+  border: 2px dashed #fff;
+  height: 500px;
+  width: 700px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #5256ad;
+}
+.drag-area.active{
+  border: 2px solid #ffffff;
+}
+.drag-area .icon{
+  font-size: 100px;
+  color: #fff;
+}
+.drag-area header{
+  font-size: 30px;
+  font-weight: 500;
+  color: #fff;
+}
+.drag-area span{
+  font-size: 25px;
+  font-weight: 500;
+  color: #fff;
+  margin: 10px 0 15px 0;
+}
+.drag-area button{
+  padding: 10px 25px;
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  background: #fff;
+  color: #5256ad;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.drag-area img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
 #splash{
-width: 28em;
+width: 35em;
 margin: 1% auto 0 auto;
+align-items: center;
 }
 
 #splash .logo{
@@ -75,7 +123,7 @@ height: auto;
 }
 
 #splash h1{
-color: #37b34a;
+color: #5256ad;
 }
 
 #splash h1.title{
@@ -91,7 +139,7 @@ font-size: 0.75em;
 
 #splash .subscript{
 display: block;
-color: #3bb34a;
+color: #5256ad;
 font-size: 1.45em;
 text-align: center;
 font-style: normal;
@@ -116,9 +164,9 @@ margin: 0 0.3em;
 padding: 0.3em 1em;
 background-color: #fff;
 border-radius: 5em;
-border: 2px solid #d7e9b7;
+border: 2px solid #5256ad;
 cursor: pointer;
-color: #3bb34a;
+color: #5256ad;
 }
 
 .button a:hover{
@@ -190,7 +238,7 @@ background-size: 1.5em 1.5em;
 }
 
 .button:hover{
-color: #55c960;
+color: #5256ad;
 box-shadow: 0 2px 1px #d7dae1;
 text-decoration: none;
 }
@@ -367,9 +415,9 @@ padding: 0;
 float: left;
 width: 13%;
 font-size: 1em;
-border: 2px solid #8aba5a;
+border: 2px solid #5256ad;
 color: #fff;
-color: #8aba5a;
+color: #5256ad;
 text-align: center;
 clear: left;
 border-radius: 0.4em;
@@ -403,7 +451,7 @@ height: 1.5em;
 font-size: 0.8em;
 font-weight: bold;
 background-color: #fff;
-background-color: #8aba5a;
+background-color: #5256ad;
 color: #fff;
 text-align: center;
 line-height: 1.5;
@@ -444,7 +492,7 @@ pointer-events: none;
 #select svg *{
 fill: #fff !important;
 fill-opacity: 0 !important;
-stroke: #3bb34a !important;
+stroke: #5256ad !important;
 stroke-width: 2px !important;
 vector-effect: non-scaling-stroke !important;
 stroke-linejoin: round !important;
@@ -461,12 +509,12 @@ stroke-linejoin: round !important;
 }
 
 #select svg *:hover{
-stroke: #075911 !important;
+stroke: #5256ad !important;
 cursor: pointer !important;
 }
 
 #select svg *.active{
-stroke: #06380c !important;
+stroke: #5256ad !important;
 stroke-width: 3px !important;
 }
 
@@ -766,7 +814,7 @@ font-weight: bold;
 
 /* The Close Button */
 .close {
-  color: #aaa;
+  color: #5256ad;
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -784,7 +832,7 @@ font-weight: bold;
 }
 
 .metadata-title {
-  color: #757575;
+  color: #5256ad;
   font-weight: bolder;
   font-size: 18px;
   margin-top: 1%;

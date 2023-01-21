@@ -7,7 +7,7 @@
 		
 		<title>DXFnest with descrption </title>
 		
-		<meta name="description" content="description" />
+		<meta name="description" content="description contents" />
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,16 +25,30 @@
 		<script src="util/svgnest.js"></script>
 	</head>
 	<body>
+		<div id="header">
+			<img src="img/hlogo.svg" alt="Exercise 0" class="hlogo" />
+			<!-- a header that has buttons for other pages -->
+			<div id="hmenu">
+			<ul class="nav">
+				<li class="button" id="button1">pricing</li>
+				<li class="button" id="button2">help</li>
+				<li class="button" id="button3">language</li>
+				<li class="button" id="button4">connection</li>
+				<li class="button" id="button5">registration</li>
+			</ul>
+	    	</div>
+		</div>
 		<div id="splash">
 			<!-- a small splash page that explains what this thing is -->
+			Obtain your optimized marker
 			<img src="img/logo.svg" alt="SVGnest" class="logo" />
-			<h1 class="title">SVGnest</h1>
-			<em class="subscript">Open Source nesting</em>
+			<h1 class="title">DXFnest</h1>
+			<em class="subscript">DXF nesting</em>
 			
 			<ul class="nav">
 				<li class="button start" id="demo">Demo</li>
 				<li class="button upload" id="upload">Upload DXF</li>
-				<li class="button code" onclick="window.open('https://github.com/Jack000/SVGnest')"><a href="https://github.com/Jack000/SVGnest" target="_blank">Github</a></li>
+				<li class="button code" onclick="window.open('https://github.com/hboisgibault/SVGnest')"><a href="https://github.com/hboisgibault/SVGnest" target="_blank">Github</a></li>
 				<li class="button" id="faqbutton">FAQ</li>
 			</ul>
 			
@@ -44,12 +58,18 @@
 				<p>In computer terms this is called the irregular bin-packing problem</p>
 				
 				<h1>How much does it cost?</h1>
-				<p>It's free and open source. The code and implementation details are on <a href="https://github.com/Jack000/SVGnest" target="_blank">Github</a></p>
-				
+				<p>help</p>
+
+				<h1>What pricing plans to choose for advanced functions?</h1>
+				<p>help</p>
+
+				<h1>Can I change the straight grains for certain pattern parts?</h1>
+				<p>help</p>
+
 				<h1>Does it use inches? mm?</h1>
 				<p>SVG has its internal units, the distance related fields in the settings use SVG units, ie. pixels. The conversion between a pixel and real units depend on the exporting software, but it's typically 72 pixels = 1 inch</p>
 				
-				<h1>My SVG text/image doesn't show up?</h1>
+				<h1>My DXF text/image doesn't show up?</h1>
 				<p>Nesting only works for closed shapes, so SVG elements that don't represent closed shapes are removed. Convert text and any other elements to outlines first. Ensure that outlines do not intersect or overlap eachother. Outlines that are inside other outlines are considered holes.</p>
 				
 				<h1>It doesn't ever stop?</h1>
@@ -59,8 +79,11 @@
 				<p>Curved shapes are approximated with line segments. For a more accurate nest with curved parts, decrease the curve tolerance parameter in the configuration.</p>
 				
 				<h1>I need help?</h1>
-				<p>Add an issue on Github or contact me personally: <a href="http://jack.works">jack.works</a>
-			</div>
+				<p>Add an issue on Github or contact me personally: <a href="http://jack.works">jack.works</a></p>
+				
+				<h1>My pattern file doesn't open.</h1>
+				<p>Why?</p>
+				</div>
 		</div>
 
 		<div id="dxfmetadata" style="display: none" class="modal">

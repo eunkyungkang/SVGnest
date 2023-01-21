@@ -39,9 +39,32 @@ margin: 1em 0 0.2em 0;
 color: #8498d1;
 }
 
+#header{
+  width: 100%;
+  margin: 0;
+  margin-left: 1%;
+  height: 5%;
+}
+
+#header .hlogo{
+  width: 13%;
+  margin: 0;
+  margin-left: 1%;
+  margin-top: 0;
+  float: left;
+  height: auto;
+}
+
+#hmenu{
+  width: 50%;
+  margin: 0;
+  margin-left: 50%;
+  right: 10%; 
+}
+
 #splash{
 width: 28em;
-margin: 8% auto 0 auto;
+margin: 1% auto 0 auto;
 }
 
 #splash .logo{
@@ -89,8 +112,8 @@ padding: 0;
 
 .button{
 display: block;
-margin: 0 0.5em;
-padding: 0.6em 2.4em;
+margin: 0 0.3em;
+padding: 0.3em 1em;
 background-color: #fff;
 border-radius: 5em;
 border: 2px solid #d7e9b7;

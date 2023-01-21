@@ -1,4 +1,0 @@
-/*!
- * SvgNest
- * Licensed under the MIT license
- */

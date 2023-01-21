@@ -1,5 +1,3 @@
-require('pathseg');
-
 // UI-specific stuff, button clicks go here
 function ready(fn){
     if (document.readyState != 'loading'){
@@ -11,13 +9,6 @@ function ready(fn){
 }
 
 ready(function(){
-    require('./src/download');
-    require('./src/upload');
-    require('./src/nesting');
-    require('./src/toolbar');
-    require('./src/demo');
-    require('./src/faq');
-    
     // Alert message
     var message = document.getElementById('message');
     message.onclick = function(e){

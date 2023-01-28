@@ -64,14 +64,18 @@ color: #8498d1;
 
 .drag-area{
   border: 2px dashed #fff;
-  height: 400px;
-  width: 20em;
+  height: 80%;
+  width: 80%;
   border-radius: 5px;
-  display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   background: #5256ad;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  padding-inline: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 .drag-area.active{
   border: 2px solid #ffffff;
@@ -109,12 +113,36 @@ color: #8498d1;
   border-radius: 5px;
 }
 
+.drag-area2{
+  border: 2px dashed #5256ad;
+  height: 80%;
+  width: 80%;
+  border-radius: 5px;
+  margin: 20px;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: rgb(29, 29, 29);
+  font-size: 18px;
+  text-align: left;
+  padding-inline: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.drag-area2 header{
+  font-size: 30px;
+  font-weight: 500;
+  color: #rgb(29, 29, 29);
+}
+
+
 #splash{
 width: 50em;
 margin: 1% auto 0 auto;
 align-items: center;
 display: flex;
-flex-wrap: nowrap;
+flex-direction: column;
+padding-top: 50px;
 }
 
 #splash .logo{
@@ -161,7 +189,6 @@ padding: 0;
 }
 
 .button{
-display: block;
 margin: 0 0.3em;
 padding: 0.3em 1em;
 background-color: #fff;
@@ -194,6 +221,7 @@ background: #fff url(img/upload.svg) no-repeat;
 background-size: 1em 1em;
 background-position: 2.2em 50%;
 padding-left: 4em;
+float: center;
 }
 
 .button.download{

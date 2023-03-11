@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 wholeSVG.setAttribute('width',svg.getAttribute('width'));
                 wholeSVG.setAttribute('height',svg.getAttribute('height'));
                 wholeSVG.setAttribute('viewBox',svg.getAttribute('viewBox'));
-                var rect = document.createElementNS(wholeSVG.namespaceURI,'rect');
+                var rect = document.createElementNS(wholeSVG.namespaceURI, 'rect');
                 rect.setAttribute('x', wholeSVG.viewBox.baseVal.x);
                 rect.setAttribute('y', wholeSVG.viewBox.baseVal.x);
                 rect.setAttribute('width', wholeSVG.viewBox.baseVal.width);

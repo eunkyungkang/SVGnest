@@ -1,3 +1,7 @@
+div {
+  display: inline;
+}
+
 body, html{
 margin: 0;
 padding: 0;
@@ -8,12 +12,12 @@ color: #8b8b8b;
 }
 
 a{
-color: #3bb34a;
+color: #5256ad;
 text-decoration: none;
 }
 
 a:hover{
-color: #55c960;
+color: #5256ad;
 text-decoration: underline;
 }
 
@@ -41,16 +45,17 @@ color: #8498d1;
 
 #header{
   width: 100%;
-  margin: 0;
+  margin: 20px 0 0 0;
   margin-left: 1%;
   height: 5%;
+  display: block;
 }
 
 #header .hlogo{
-  width: 13%;
+  width: 150px;
   margin: 0;
-  margin-left: 1%;
-  margin-top: 0;
+  margin-left: 7%;
+  margin-top: 8px;
   float: left;
   height: auto;
 }
@@ -58,8 +63,8 @@ color: #8498d1;
 #hmenu{
   width: 50%;
   margin: 0;
-  margin-left: 50%;
-  right: 10%; 
+  margin-left: 70%;
+  display: block;
 }
 
 .drag-area{
@@ -135,14 +140,13 @@ color: #8498d1;
   color: rgb(29, 29, 29);
 }
 
-
 #splash{
 width: 50em;
 margin: 1% auto 0 auto;
 align-items: center;
 display: flex;
 flex-direction: column;
-padding-top: 50px;
+padding-top: 20px;
 }
 
 #splash .logo{
@@ -217,8 +221,8 @@ text-decoration: none;
 .button.start{
 background: #fff url(img/start.svg) no-repeat;
 background-size: 1.4em 1.4em;
-background-position: 1.8em 50%;
-padding-left: 3.7em;
+background-position: 1em 50%;
+padding-left: 2.8em;
 }
 
 .button.spinner{
@@ -231,8 +235,8 @@ padding-left: 3.7em;
 .button.upload{
 background: #fff url(img/upload.svg) no-repeat;
 background-size: 1em 1em;
-background-position: 2.2em 50%;
-padding-left: 4em;
+background-position: 1.3em 50%;
+padding-left: 3em;
 float: center;
 }
 
@@ -308,7 +312,8 @@ box-shadow: none;
 }
 
 #splash .nav{
-float: center;
+display:flex;
+flex-direction: row;
 }
 
 #faq{
@@ -813,7 +818,6 @@ font-weight: bold;
 	
 	#splash .nav li{
 	float: none;
-	display: block;
 	margin-top: 1em;
 	}
 	

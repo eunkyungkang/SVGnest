@@ -157,17 +157,13 @@ padding: 0;
 text-align: center;
 }
 
-.subscript{
-font-size: 0.75em;
-}
-
 #splash .subscript{
 display: block;
 color: #5256ad;
 font-size: 1.45em;
 text-align: center;
 font-style: normal;
-
+margin-bottom: 25px;
 }
 
 .nav{
@@ -206,6 +202,7 @@ color: #5256ad;
 float: center;
 display: flex;
 align-items: center;
+justify-content: center;
 }
 
 .button a:hover{
@@ -341,7 +338,7 @@ font-size: 3em;
 #svgnest .sidebar{
 clear: both;
 width: 100%;
-margin-top: 3em;
+margin-top: 2em;
 }
 
 #svgnest .nav{
@@ -829,7 +826,10 @@ font-weight: bold;
 }
 
 .modal-header {
-  margin-bottom: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .modal-title {
@@ -839,6 +839,8 @@ font-weight: bold;
 }
 
 .modal-content {
+  display: flex;
+  flex-direction: column;
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
@@ -862,6 +864,8 @@ font-weight: bold;
 } 
 
 .metadata {
+  display: flex;
+  flex-direction: column;
   margin-top: 1%;
 }
 
@@ -877,6 +881,6 @@ font-weight: bold;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 2%;
+  margin-top: 5%;
   width: 40%;
 }

@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     var download = document.getElementById('download');
     var display = document.getElementById('select');
+    var message = document.getElementById('message');
 
     download.onclick = function() {
         if(download.className == 'button download disabled'){
@@ -49,8 +50,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
         else{
             output = svg.outerHTML;
         }
-        
-        var blob = new Blob([output], {type: "image/svg+xml;charset=utf-8"});
-        saveAs(blob, "SVGnest-output.svg");
+
+        convertToDxf(output);
+    }
+
+    const convertToDxf = (file) => {
+        const conversionServerUrl = "http://convert.deepnest.io/";
+
+        if(!file) {
+            return;
+        }
+
+        download.className = 'button spinner';
+
+        const data = JSON.stringify({ "svg": file });
+        fetch(conversionServerUrl, { method: "POST", body: data })
+            .then((response) => response.json())
+            .then((data) => {
+                var blob = new Blob([output], {type: "image/x-dxf;charset=utf-8"});
+                saveAs(blob, "output.dxf");
+                download.className = 'button';
+            })
+            .catch(err => {
+                console.log(err);
+                message.innerHTML = 'Error when converting to DXF';
+                message.className = 'error animated bounce';
+            });
     }
 })

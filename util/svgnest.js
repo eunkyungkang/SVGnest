@@ -767,10 +767,9 @@
 					var p = placement[i][j];
 					var part = tree[p.id];
 					
-					// the original path could have transforms and stuff on it, so apply our transforms on a group
-					var partgroup = document.createElementNS(svg.namespaceURI, 'g');
+					// apply transforms on the path
+					var partgroup = clone[part.source];
 					partgroup.setAttribute('transform','translate('+p.x+' '+p.y+') rotate('+p.rotation+')');
-					partgroup.appendChild(clone[part.source]);
 					
 					if(part.children && part.children.length > 0){
 						var flattened = _flattenTree(part.children, true);

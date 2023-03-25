@@ -88,19 +88,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
     dxfMetadataSubmit.onclick = function() {
         var selectedSize = dxfSizeSelect.value;
 
+        var patternWidth = document.getElementById("pattern-width").value;
         dxfMetadataSubmit.className = 'button spinner disabled';
         dxfMetadataSubmit.innerHTML = "Preparing nesting...";
 
-        convertToSvg(dxfFilename, selectedSize);
+        convertToSvg(dxfFilename, selectedSize, patternWidth);
     }
 
-    function convertToSvg(filename, size) {
+    function convertToSvg(filename, size, patternWidth) {
         const apiUrl = "https://dxf-convertor.herokuapp.com/dxf_to_svg";
-        console.log(filename, size);
 
         fetch(apiUrl + "?" + new URLSearchParams({
             filename: filename,
             size: size,
+            width: patternWidth
         }), { method: "GET" })
             .then((response) => response.json())
             .then((data) => {
@@ -143,7 +144,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 wholeSVG.setAttribute('width',svg.getAttribute('width'));
                 wholeSVG.setAttribute('height',svg.getAttribute('height'));
                 wholeSVG.setAttribute('viewBox',svg.getAttribute('viewBox'));
-                var rect = document.createElementNS(wholeSVG.namespaceURI,'rect');
+                var rect = document.createElementNS(wholeSVG.namespaceURI, 'rect');
                 rect.setAttribute('x', wholeSVG.viewBox.baseVal.x);
                 rect.setAttribute('y', wholeSVG.viewBox.baseVal.x);
                 rect.setAttribute('width', wholeSVG.viewBox.baseVal.width);
@@ -161,12 +162,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
         
         hideSplash();
-        message.innerHTML = 'Click on the outline to use as the bin';
-        message.className = 'active animated bounce';
-        start.className = 'button start disabled';
+
+        window.SvgNest.setbin(rect);
+        rect.setAttribute('class',(rect.getAttribute('class') ? rect.getAttribute('class')+' ' : '') + 'active');
         
-        attachSvgListeners(svg);
-        attachSvgListeners(wholeSVG);
+        start.className = 'button start animated bounce';
+        message.className = '';
     };
 
     function hideSplash(){
@@ -176,33 +177,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
             splash.remove();
         }
         svgnest.setAttribute('style','display: block');
-    }
-
-    function attachSvgListeners(svg) {
-        // attach event listeners
-        for(var i=0; i<svg.childNodes.length; i++) {
-            var node = svg.childNodes[i];
-            if(node.nodeType == 1){
-                node.onclick = function(){
-                    if(display.className == 'disabled') {
-                        return;
-                    }
-                    var currentbin = document.querySelector('#select .active');
-                    if(currentbin){
-                        var className = currentbin.getAttribute('class').replace('active', '').trim();
-                        if(!className)
-                            currentbin.removeAttribute('class');
-                        else
-                            currentbin.setAttribute('class', className);
-                    }
-                    
-                    window.SvgNest.setbin(this);
-                    this.setAttribute('class',(this.getAttribute('class') ? this.getAttribute('class')+' ' : '') + 'active');
-                    
-                    start.className = 'button start animated bounce';
-                    message.className = '';
-                }
-            }
-        }
     }
 })

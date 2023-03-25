@@ -55,8 +55,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     const convertToDxf = (file) => {
-        const conversionServerUrl = "http://convert.deepnest.io/";
+        const conversionServerUrl = "https://dxf-convertor.herokuapp.com/svg_to_dxf";
 
+        console.log(file);
         if(!file) {
             return;
         }

@@ -11,8 +11,10 @@ function ready(fn){
 ready(function(){
     // Alert message
     var message = document.getElementById('message');
-    message.onclick = function(e){
-        this.className='';
+    var messageWrapper = document.getElementById('messagewrapper');
+    messageWrapper.onclick = function(e){
+        message.className = '';
+        message.innerHTML = '';
     }
 
     // Initial checks    

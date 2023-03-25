@@ -6,10 +6,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     var faqvisible = false;
     faqbutton.onclick = function(e){
         if(!faqvisible){
-            faq.setAttribute('style','display: block');
+            faq.setAttribute('style','display: flex');
+            faq.scrollIntoView({ behavior: "smooth" });
         }
         else{
-            faq.removeAttribute('style');
+            faq.setAttribute('style', 'display: none');
         }
         faqvisible = !faqvisible;
     };

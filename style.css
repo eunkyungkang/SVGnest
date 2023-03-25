@@ -317,7 +317,14 @@ display:flex;
 flex-direction: row;
 }
 
-#faq, #pricing {
+#faq {
+  display: none;
+  flex-direction: column;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+#pricing {
   display: none;
   flex-direction: column;
   margin-left: 10%;

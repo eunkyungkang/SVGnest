@@ -122,13 +122,23 @@
 					<span class="close">&times;</span>
 				</div>
 				<div class="metadata">
-					<div class="metadata-title">Number of pieces detected</div>
-					<div id="dxf-pieces">0</div>
+					<div class="metadata-group">
+						<div class="metadata-title">Number of pieces detected</div>
+						<div id="dxf-pieces">0</div>
+					</div>
 
-					<div class="metadata-title">Choose a size to start nesting</div>
-					<select name="size" id="dxf-sizes">
-					</select>
+					<div class="metadata-group">
+						<div class="metadata-title">DXF size</div>
+						<select name="size" id="dxf-sizes"></select>
+					</div>
 
+					<div class="metadata-group">
+						<div class="metadata-title">Pattern width</div>
+						<div class="pattern-width-group">
+							<input type="number" min="0" value="1000" name="width" id="pattern-width" /><span> mm</span>
+						</div>
+					</div>
+					
 					<div id="metadata-submit" class="button">Continue</div>
 				</div>
 			</div>
@@ -138,7 +148,7 @@
 			<div id="controls">
 				<ul class="nav">
 				<li class="button start disabled" id="start"><span id="startlabel">Start Nest</span></li>
-				<li class="button download disabled" id="download">Download SVG</li>
+				<li class="button download disabled" id="download">Download DXF</li>
 				<li class="button config" id="configbutton"></li>
 				<li class="button zoomin" id="zoominbutton"></li>
 				<li class="button zoomout" id="zoomoutbutton"></li>

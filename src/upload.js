@@ -88,19 +88,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
     dxfMetadataSubmit.onclick = function() {
         var selectedSize = dxfSizeSelect.value;
 
+        var patternWidth = document.getElementById("pattern-width").value;
         dxfMetadataSubmit.className = 'button spinner disabled';
         dxfMetadataSubmit.innerHTML = "Preparing nesting...";
 
-        convertToSvg(dxfFilename, selectedSize);
+        convertToSvg(dxfFilename, selectedSize, patternWidth);
     }
 
-    function convertToSvg(filename, size) {
+    function convertToSvg(filename, size, patternWidth) {
         const apiUrl = "https://dxf-convertor.herokuapp.com/dxf_to_svg";
-        console.log(filename, size);
 
         fetch(apiUrl + "?" + new URLSearchParams({
             filename: filename,
             size: size,
+            width: patternWidth
         }), { method: "GET" })
             .then((response) => response.json())
             .then((data) => {

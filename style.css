@@ -43,6 +43,16 @@ margin: 1em 0 0.2em 0;
 color: #8498d1;
 }
 
+table{  
+  border-collapse: collapse;  
+  width: 100%;   
+}  
+th,td{  
+border: 2px solid #5256ad;   
+padding: 15px;  
+}  
+     
+
 #header {
   margin-left: 10%;
   margin-right: 10%;

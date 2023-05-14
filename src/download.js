@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         download.className = 'button spinner';
 
         const data = JSON.stringify({ "svg": file });
-        fetch(conversionServerUrl, { method: "POST", body: data })
+        fetch(conversionServerUrl, { method: "GET", body: data })
             .then((response) => response.json())
             .then((data) => {
                 var blob = new Blob([output], {type: "image/x-dxf;charset=utf-8"});

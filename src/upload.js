@@ -98,6 +98,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function convertToSvg(filename, size, patternWidth) {
         const apiUrl = "https://dxf-convertor.herokuapp.com/dxf_to_svg";
 
+        if(window && window.sessionStorage) {
+            window.sessionStorage.setItem("dxfSize", size);
+            window.sessionStorage.setItem("dxfFilename", filename);
+        }
         fetch(apiUrl + "?" + new URLSearchParams({
             filename: filename,
             size: size,

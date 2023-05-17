@@ -55,9 +55,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     const convertToDxf = (file) => {
-        const conversionServerUrl = "https://dxf-convertor.herokuapp.com/svg_to_dxf";
+        const apiUrl = "https://dxf-convertor.herokuapp.com/svg_to_dxf";
 
-        console.log(file);
         if(!file) {
             return;
         }
@@ -65,12 +64,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
         download.className = 'button spinner';
 
         const data = JSON.stringify({ "svg": file });
-        fetch(conversionServerUrl, { method: "POST", body: data })
-            .then((response) => response.json())
-            .then((data) => {
-                var blob = new Blob([output], {type: "image/x-dxf;charset=utf-8"});
-                saveAs(blob, "output.dxf");
-                download.className = 'button';
+        const size = window.sessionStorage.getItem("dxfSize");
+        const filename = window.sessionStorage.getItem("dxfFilename");
+
+        fetch(apiUrl + "?" + new URLSearchParams({
+            filename: filename,
+            size: size
+        }), { method: "POST", headers: {
+            "Content-Type": "application/json",
+          }, body: data })
+            .then(response => response.blob())
+            .then((blob) => {
+                const downloadFilename = "converted_" + size + ".dxf";
+                saveAs(blob, downloadFilename);
             })
             .catch(err => {
                 console.log(err);

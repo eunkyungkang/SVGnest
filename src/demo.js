@@ -20,6 +20,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		const demoRect = document.getElementById('demo-rect');
 		window.SvgNest.setbin(demoRect);
 		var start = document.getElementById('start');
+		
+        if(window && window.sessionStorage) {
+			window.sessionStorage.setItem("dxfSize", "M");
+            window.sessionStorage.setItem("dxfFilename", "demo.dxf");
+        }
+
 		start.className = 'button start animated bounce';
 		message.className = '';
 	};

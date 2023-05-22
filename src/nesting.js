@@ -57,7 +57,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     const startProgress = (percent) => {
-        console.log(percent);
         var transition = percent > prevpercent ? '; transition: width 0.1s' : '';
         document.getElementById('info_progress').setAttribute('style','width: '+Math.round(percent*100)+'% ' + transition);
         document.getElementById('info').setAttribute('style','display: block');

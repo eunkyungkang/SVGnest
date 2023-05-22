@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     const startProgress = (percent) => {
+        console.log(percent);
         var transition = percent > prevpercent ? '; transition: width 0.1s' : '';
         document.getElementById('info_progress').setAttribute('style','width: '+Math.round(percent*100)+'% ' + transition);
         document.getElementById('info').setAttribute('style','display: block');
@@ -140,11 +141,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         zoomin.className = 'button zoomin disabled';
         zoomout.className = 'button zoomout disabled';
         
-        var svg = document.querySelector('#select svg');
-        if(svg) {
-            svg.removeAttribute('style');
-        }
-        
         isworking = true;
     }
 
@@ -168,9 +164,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         bins.innerHTML = '';
         
         for(var i=0; i<svglist.length; i++){
-            if(svglist.length > 2){
-                svglist[i].setAttribute('class','grid');
-            }
             bins.appendChild(svglist[i]);
         }
         

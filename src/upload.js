@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             .then((data) => {
                 dxfFilename = data.filename;
                 showDxfMetadata(data);
-                upload.className = 'button';
+                upload.className = 'button upload';
             })
             .catch(err => {
                 message.innerHTML = 'Error when fetching DXF metadata';
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     /* DXF metadata modal */
-    var modalClose = document.getElementsByClassName("close")[0];
+    var modalClose = document.getElementsByClassName("modal-close")[0];
 
     modalClose.onclick = function() {
         dxfMetadataModal.style.display = "none";
@@ -168,8 +168,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         hideSplash();
 
         window.SvgNest.setbin(rect);
-        rect.setAttribute('class',(rect.getAttribute('class') ? rect.getAttribute('class')+' ' : '') + 'active');
-        
+
         start.className = 'button start animated bounce';
         message.className = '';
     };

@@ -329,7 +329,7 @@ flex-direction: row;
 
 /* select style */
 
-select, input {
+.modal select, .modal input {
   width: 50% !important;
   background-color: white;
   border: 1px solid lightgray;

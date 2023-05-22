@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function FileDrop(e) {
-        e.stopPropagation(); // Make sure not to replace website by file
+        e.stopPropagation();
         e.preventDefault();
         getDxfMetadata(e.dataTransfer.files[0]);
     }
@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             return;
         }
 
-        console.log(file);
         if(!file.type || !file.type.includes('dxf') || !file.name.includes('dxf')){
             message.innerHTML = 'Only DXF files allowed';
             message.className = 'error animated bounce';

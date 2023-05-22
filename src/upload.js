@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             return;
         }
 
-        if(file.type === undefined || !file.type.includes('dxf') || !file.name.includes('dxf')){
+        if(file.type === undefined || (!file.type.includes('dxf') && !file.name.includes('dxf'))){
             message.innerHTML = 'Only DXF files allowed';
             message.className = 'error animated bounce';
             return

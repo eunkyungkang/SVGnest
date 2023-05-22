@@ -213,9 +213,9 @@ function PlacementWorker(binPolygon, paths, ids, rotations, config, nfpCache){
 				// choose placement that results in the smallest bounding box
 				// could use convex hull instead, but it can create oddly shaped nests (triangles or long slivers) which are not optimal for real-world use
 				// todo: generalize gravity direction
-				var minwidth = null;
+				var minheight = null;
 				var minarea = null;
-				var minx = null;
+				var miny = null;
 				var nf, area, shiftvector;
 
 				for(j=0; j<finalNfp.length; j++){
@@ -246,14 +246,14 @@ function PlacementWorker(binPolygon, paths, ids, rotations, config, nfpCache){
 						
 						var rectbounds = GeometryUtil.getPolygonBounds(allpoints);
 						
-						// weigh width more, to help compress in direction of gravity
-						area = rectbounds.width*2 + rectbounds.height;
+						// weigh height more, to help compress in direction of gravity
+						area = rectbounds.width + rectbounds.height*2;
 						
-						if(minarea === null || area < minarea || (GeometryUtil.almostEqual(minarea, area) && (minx === null || shiftvector.x < minx))){
+						if(minarea === null || area < minarea || (GeometryUtil.almostEqual(minarea, area) && (miny === null || shiftvector.y < miny))){
 							minarea = area;
-							minwidth = rectbounds.width;
+							minheight = rectbounds.height;
 							position = shiftvector;
-							minx = shiftvector.x;
+							miny = shiftvector.y;
 						}
 					}
 				}
@@ -263,8 +263,8 @@ function PlacementWorker(binPolygon, paths, ids, rotations, config, nfpCache){
 				}
 			}
 			
-			if(minwidth){
-				fitness += minwidth/binarea;
+			if(minheight){
+				fitness += minheight/binarea;
 			}
 			
 			for(i=0; i<placed.length; i++){

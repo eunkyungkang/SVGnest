@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             .then((blob) => {
                 const downloadFilename = "converted_" + size + ".dxf";
                 saveAs(blob, downloadFilename);
+                download.className = 'button';
             })
             .catch(err => {
                 console.log(err);

@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     fileinput.onchange = function(e) {
-        getDxfMetadata(e.target.files[0]);
+        getDxfMetadata(fileinput.files[0]);
     }
 
     const getDxfMetadata = (file) => {
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             return;
         }
 
-        console.log(file.type);
+        console.log(file);
         if(!file.type || !file.type.includes('dxf')){
             message.innerHTML = 'Only DXF files allowed';
             message.className = 'error animated bounce';

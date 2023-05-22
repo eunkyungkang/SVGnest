@@ -75,8 +75,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
           }, body: data })
             .then(response => response.blob())
             .then((blob) => {
+                const downloadLink = document.createElement("a");
                 const downloadFilename = "converted_" + size + ".dxf";
-                saveAs(blob, downloadFilename);
+
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = downloadFilename;
+                downloadLink.click();
+                URL.revokeObjectURL(downloadLink.href);
+                
                 download.className = 'button';
             })
             .catch(err => {

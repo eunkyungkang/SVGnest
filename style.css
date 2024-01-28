@@ -924,7 +924,7 @@ font-weight: bold;
 @import "compass.js";
  .parent-container {
 	 padding: 0 20px 0 20px;
-	 max-width: 800px;
+	 max-width: 500px;
 	 width: 100%;
 }
  .faq {
@@ -993,7 +993,7 @@ font-weight: bold;
 	 padding: 20px 0;
 	 transition: color 0.5s ease;
 }
- @media screen and ("max-width:767px") {
+ @media screen and ("max-width:500px") {
 	 .faq .question {
 		 font-size: 18px;
 	}

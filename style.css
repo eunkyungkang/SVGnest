@@ -921,7 +921,7 @@ font-weight: bold;
 }
 
 /* FAQ toggle styles */
-@import "compass";
+@import "compass.js";
  .parent-container {
 	 padding: 0 20px 0 20px;
 	 max-width: 800px;

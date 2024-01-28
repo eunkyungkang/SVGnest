@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             size: size
         }), { method: "POST", headers: {
             "Content-Type": "application/json",
-          }, body: data })
+        }, body: data })
             .then(response => response.blob())
             .then((blob) => {
                 const downloadLink = document.createElement("a");

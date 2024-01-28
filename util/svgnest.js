@@ -53,11 +53,11 @@
 			
 			// parse svg
 			svg = SvgParser.load(svgstring);
-			
+
 			this.style = SvgParser.getStyle();
 
 			svg = SvgParser.clean();
-			
+
 			tree = this.getParts(svg.childNodes);
 
 			//re-order elements such that deeper elements are on top, so they can be moused over
@@ -592,7 +592,6 @@
 		// assuming no intersections, return a tree where odd leaves are parts and even ones are holes
 		// might be easier to use the DOM, but paths can't have paths as children. So we'll just make our own tree.
 		this.getParts = function(paths){
-			
 			var i, j;
 			var polygons = [];
 			
@@ -602,12 +601,12 @@
 				poly = this.cleanPolygon(poly);
 				
 				// todo: warn user if poly could not be processed and is excluded from the nest
-				if(poly && poly.length > 2 && Math.abs(GeometryUtil.polygonArea(poly)) > config.curveTolerance*config.curveTolerance){
+				if(poly && poly.length > 2 && Math.abs(GeometryUtil.polygonArea(poly)) > config.curveTolerance*config.curveTolerance) {
 					poly.source = i;					
 					polygons.push(poly);
 				}
 			}
-						
+			
 			// turn the list into a tree
 			toTree(polygons);
 			

@@ -66,15 +66,14 @@
 		
 		// remove any g elements and bring all elements to the top level
 		this.flatten(this.svgRoot);
-		
+
 		// remove any non-contour elements like text
 		this.filter(this.allowedElements);
-		
+
 		// split any compound paths into individual path elements
 		this.recurse(this.svgRoot, this.splitPath);
-		
-		return this.svgRoot;
 
+		return this.svgRoot;
 	}
 	
 	// return style node, if any

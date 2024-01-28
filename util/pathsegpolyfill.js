@@ -6,6 +6,12 @@
 // changes which were implemented in Firefox 43 and Chrome 46.
 
 (function() { "use strict";
+    // The polyfill only applies to browser environments with a `window` object 
+    // (i.e. not node.js, workers, etc.). If included in one of these 
+    // environments (such as when using 'react-dom/server'), simply return out
+    if (typeof window === 'undefined')
+        return;
+
     if (!("SVGPathSeg" in window)) {
         // Spec: http://www.w3.org/TR/SVG11/single-page.html#paths-InterfaceSVGPathSeg
         window.SVGPathSeg = function(type, typeAsLetter, owningPathSegList) {
@@ -380,6 +386,15 @@
         window.SVGPathSegList.prototype.classname = "SVGPathSegList";
 
         Object.defineProperty(window.SVGPathSegList.prototype, "numberOfItems", {
+            get: function() {
+                this._checkPathSynchronizedToList();
+                return this._list.length;
+            },
+            enumerable: true
+        });
+
+        // The length property was not specified but was in Firefox 58.
+        Object.defineProperty(window.SVGPathSegList.prototype, "length", {
             get: function() {
                 this._checkPathSynchronizedToList();
                 return this._list.length;
